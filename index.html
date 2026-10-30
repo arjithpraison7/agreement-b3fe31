@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>The Agreement of Forever</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6ecd6;
+    --paper-dark: #ead9b4;
+    --ink: #372e23;
+    --maroon: #5d0909;
+    --gold: #b8833b;
+    --gold-soft: #d8b878;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, #fbf4e3 0%, var(--paper) 55%, var(--paper-dark) 100%) fixed;
+    color: var(--ink);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 20px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 28px 16px 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .frame {
+    width: 100%;
+    border: 2px solid var(--gold);
+    outline: 1px solid var(--gold);
+    outline-offset: 5px;
+    padding: 26px 20px 30px;
+    margin: 6px 0;
+    text-align: center;
+    position: relative;
+  }
+  h1 {
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    color: var(--maroon);
+    font-size: clamp(26px, 7vw, 40px);
+    line-height: 1.1;
+    margin: 0 0 6px;
+    letter-spacing: 0.02em;
+  }
+  .sub { font-style: italic; color: var(--maroon); font-size: 22px; margin: 0 0 14px; }
+  .flourish { color: var(--gold); letter-spacing: 0.4em; font-size: 16px; margin: 8px 0; }
+  .parties { font-size: 18px; line-height: 1.45; margin: 0 auto; max-width: 30em; }
+  .parties b { color: var(--maroon); }
+
+  /* progress */
+  .dots { display: flex; gap: 7px; justify-content: center; margin: 22px 0 16px; flex-wrap: wrap; }
+  .dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--gold); color: var(--gold);
+    font: 700 13px/25px "Cinzel", serif; text-align: center;
+    background: transparent; padding: 0; cursor: default;
+  }
+  .dot.done { background: var(--maroon); border-color: var(--maroon); color: #f6e7c4; cursor: pointer; }
+  .dot.now { box-shadow: 0 0 0 3px rgba(184, 131, 59, 0.35); }
+
+  /* card */
+  .card {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    background: #fffaf0;
+    border: 1.5px solid var(--gold-soft);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(93, 9, 9, 0.12);
+    overflow: hidden;
+  }
+  .clause { padding: 34px 26px 30px; text-align: center; }
+  .badge {
+    display: inline-block; width: 52px; height: 52px; border-radius: 50%;
+    border: 2px solid var(--gold); color: var(--maroon);
+    font: 700 24px/48px "Cinzel", serif; margin-bottom: 12px;
+  }
+  .clause h2 {
+    font-family: "Cinzel", serif; color: var(--maroon);
+    font-size: 21px; letter-spacing: 0.06em; margin: 0 0 12px;
+  }
+  .clause p { margin: 0; font-size: 21px; line-height: 1.45; font-weight: 500; }
+  .scratch {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    touch-action: none; cursor: grab;
+    transition: opacity 0.6s ease;
+  }
+  .scratch.gone { opacity: 0; pointer-events: none; }
+
+  .hint { font-style: italic; color: var(--gold); margin: 14px 0 0; min-height: 1.4em; font-size: 18px; }
+  .btn {
+    font-family: "Cinzel", serif; font-weight: 700; font-size: 15px; letter-spacing: 0.08em;
+    background: var(--maroon); color: #f6e7c4; border: 0; border-radius: 999px;
+    padding: 13px 26px; margin-top: 16px; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(93, 9, 9, 0.25);
+  }
+  .btn[hidden] { display: none; }
+  .btn.ghost { background: transparent; color: var(--maroon); border: 1.5px solid var(--maroon); box-shadow: none; }
+
+  /* signing */
+  #sign { width: 100%; text-align: center; }
+  #sign[hidden] { display: none; }
+  .all { text-align: left; margin: 0; padding: 0; list-style: none; }
+  .all li { padding: 10px 0; border-bottom: 1px dashed var(--gold-soft); font-size: 18px; line-height: 1.4; }
+  .all li b { font-family: "Cinzel", serif; color: var(--maroon); font-size: 14px; letter-spacing: 0.05em; display: block; }
+  .pad-wrap { position: relative; margin: 22px auto 0; max-width: 420px; }
+  .pad {
+    width: 100%; height: 150px; display: block; touch-action: none;
+    background: #fffaf0; border: 1.5px dashed var(--gold); border-radius: 10px; cursor: crosshair;
+  }
+  .pad-label {
+    position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
+    font-family: "Great Vibes", cursive; color: var(--gold-soft); font-size: 34px; pointer-events: none;
+  }
+  .choices { position: relative; min-height: 140px; margin-top: 6px; }
+  .choices[hidden] { display: none; }
+  #no { transition: left 0.2s ease, top 0.2s ease; margin-top: 16px; }
+
+  .sealed { margin-top: 26px; }
+  .sealed[hidden] { display: none; }
+  .seal {
+    width: 120px; height: 120px; margin: 0 auto 10px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #c0392b, #8e1b12 60%, #5d0909);
+    box-shadow: inset 0 0 0 6px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(93, 9, 9, 0.35);
+    color: #f6d9b0; font: 700 12px/1.25 "Cinzel", serif; letter-spacing: 0.05em;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    animation: stamp 0.55s cubic-bezier(.2, 1.6, .4, 1) both;
+  }
+  @keyframes stamp { from { transform: scale(2.4) rotate(-25deg); opacity: 0; } to { transform: scale(1) rotate(-8deg); opacity: 1; } }
+  .sealed .script { font-family: "Great Vibes", cursive; color: var(--maroon); font-size: 34px; margin: 6px 0 0; }
+
+  .heart {
+    position: fixed; bottom: -40px; pointer-events: none; font-size: 26px;
+    animation: rise linear forwards;
+  }
+  @keyframes rise { to { transform: translateY(-115vh) rotate(25deg); opacity: 0; } }
+  footer { margin-top: auto; padding-top: 26px; color: var(--gold); font-size: 15px; letter-spacing: 0.15em; font-family: "Cinzel", serif; }
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="frame">
+    <h1>The Agreement of Forever</h1>
+    <p class="sub">Terms &amp; Conditions of Marriage</p>
+    <div class="flourish">✦ ✦ ✦</div>
+    <p class="parties">between <b>Arjith Praison</b> (“Bujji”, hereinafter “the Husband”) and <b>Anjali Vijay S</b> (“Chikku”, hereinafter “the Wife”), effective 27 January 2027 and valid for all eternity</p>
+  </section>
+
+  <div class="dots" id="dots"></div>
+
+  <div id="reader" style="width:100%;text-align:center">
+    <div class="card" id="card">
+      <div class="clause">
+        <div class="badge" id="c-num">1</div>
+        <h2 id="c-title"></h2>
+        <p id="c-text"></p>
+      </div>
+      <canvas class="scratch" id="scratch"></canvas>
+    </div>
+    <p class="hint" id="hint">Scratch the gold to reveal the clause ✨</p>
+    <button class="btn" id="next" hidden>Next clause →</button>
+  </div>
+
+  <section id="sign" hidden>
+    <div class="frame">
+      <h1 style="font-size:26px">All Ten Clauses</h1>
+      <div class="flourish">✦ ✦ ✦</div>
+      <ul class="all" id="all"></ul>
+      <p class="sub" style="margin-top:22px">Signed with love, on this 27th day of January 2027.</p>
+      <div class="pad-wrap">
+        <canvas class="pad" id="pad"></canvas>
+        <div class="pad-label" id="pad-label">Sign here, Chikku</div>
+      </div>
+      <div class="choices" id="choices">
+        <button class="btn" id="yes">I agree ❤️</button>
+        <button class="btn ghost" id="no">I don't agree</button>
+      </div>
+      <div class="sealed" id="sealed" hidden>
+        <div class="seal">#Pongal<br>Weds<br>Puttu</div>
+        <p class="script">Signed &amp; sealed, forever.</p>
+        <p style="margin:6px 0 0">No refunds. No returns. Only love. — Bujji</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>#PONGALWEDSPUTTU</footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var CLAUSES = [
+    ["Head Chef Clause", "The Husband holds the permanent title of Head Chef. The Wife holds the permanent title of Chief Taste Tester and Compliment Officer. Masala dosa must be on the menu at least once a month."],
+    ["Geethu Dreams Clause", "The Wife is entitled to one “Geethu dreams” every night, with no exceptions for time zones, tiredness or arguments."],
+    ["Lazy Morning Act", "On weekends, the Wife may stay in bed for as long as she likes. The Husband agrees not to make a sound until coffee has been served in bed."],
+    ["Voice Note Clause", "Every cute voice note the Wife sends will be starred and kept forever. Deleting one counts as a serious breach of contract."],
+    ["“Nee Theerndhu” Clause", "The Wife may declare “Nee theerndhu, Praisaa!” whenever she likes. The Husband accepts that he will survive every time."],
+    ["Raised Eyebrow Clause", "When one of the Wife’s eyebrows goes up, the Husband must give a full explanation within 10 seconds, even if he doesn’t know what he did."],
+    ["Church Work Clause", "The Husband may be busy with church work on Christmas Eve, but must give the Wife his full attention once the last carol ends."],
+    ["Moon Clause", "The Wife is officially recognised as the Moon: out of this world, glowing even on her sleepiest mornings, and cute beyond all legal limits. The Husband must remind her of this every day. Any mirror that disagrees will be declared faulty."],
+    ["Bujji Clause", "Only the Wife may call the Husband “Bujji”. Anyone else who tries will be ignored."],
+    ["Forever Clause", "This agreement can’t be cancelled, returned or exchanged. It renews automatically every morning with “good morning” and every night with “good night”, for the rest of our lives."]
+  ];
+  var N = CLAUSES.length;
+  var $ = function (id) { return document.getElementById(id); };
+  var current = 0, revealed = 0;
+
+  // ---- progress dots ----
+  for (var i = 0; i < N; i++) {
+    var d = document.createElement("button");
+    d.className = "dot"; d.textContent = i + 1; d.dataset.i = i;
+    d.addEventListener("click", function () {
+      var k = +this.dataset.i;
+      if (k < revealed) show(k, true);
+    });
+    $("dots").appendChild(d);
+  }
+  function paintDots() {
+    var ds = $("dots").children;
+    for (var j = 0; j < N; j++) {
+      ds[j].classList.toggle("done", j < revealed);
+      ds[j].classList.toggle("now", j === current && !$("reader").hidden);
+    }
+  }
+
+  // ---- scratch card ----
+  var cv = $("scratch"), ctx = cv.getContext("2d"), dpr = 1, scratching = false, last = null, cleared = false, moves = 0;
+
+  function cover() {
+    var r = $("card").getBoundingClientRect();
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.globalCompositeOperation = "source-over";
+    var g = ctx.createLinearGradient(0, 0, r.width, r.height);
+    g.addColorStop(0, "#a8762f"); g.addColorStop(0.3, "#e9cc8a"); g.addColorStop(0.5, "#c89a4e");
+    g.addColorStop(0.75, "#f1d99c"); g.addColorStop(1, "#a8762f");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
+    // foil speckle
+    for (var s = 0; s < r.width * r.height / 60; s++) {
+      ctx.fillStyle = Math.random() < 0.5 ? "rgba(255,255,255,0.18)" : "rgba(93,9,9,0.07)";
+      ctx.fillRect(Math.random() * r.width, Math.random() * r.height, 1.5, 1.5);
+    }
+    ctx.strokeStyle = "rgba(93,9,9,0.35)"; ctx.lineWidth = 1.5;
+    ctx.strokeRect(12, 12, r.width - 24, r.height - 24);
+    ctx.fillStyle = "#5d0909"; ctx.textAlign = "center";
+    ctx.font = "700 22px Cinzel, serif";
+    ctx.fillText("Clause " + (current + 1), r.width / 2, r.height / 2 - 12);
+    ctx.font = "italic 500 20px 'Cormorant Garamond', serif";
+    ctx.fillText("scratch me ✦", r.width / 2, r.height / 2 + 20);
+    cv.classList.remove("gone");
+    cleared = false; moves = 0;
+  }
+
+  function pos(e) {
+    var r = cv.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+  function scratchTo(p) {
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 46;
+    ctx.beginPath();
+    var a = last || p;
+    ctx.moveTo(a.x, a.y); ctx.lineTo(p.x + 0.1, p.y);
+    ctx.stroke();
+    last = p;
+    if (++moves % 8 === 0) checkCleared();
+  }
+  function checkCleared() {
+    if (cleared) return;
+    var data = ctx.getImageData(0, 0, cv.width, cv.height).data, gone = 0, total = 0;
+    for (var k = 3; k < data.length; k += 4 * 16) { total++; if (data[k] < 128) gone++; }
+    if (gone / total > 0.45) reveal();
+  }
+  function reveal() {
+    cleared = true;
+    cv.classList.add("gone");
+    if (current >= revealed) revealed = current + 1;
+    paintDots();
+    $("hint").textContent = current === N - 1 ? "That’s all ten. Time to sign 🖋️" : "Clause " + (current + 1) + " accepted ✔";
+    $("next").textContent = current === N - 1 ? "Read & sign →" : "Next clause →";
+    $("next").hidden = false;
+    hearts(6);
+  }
+
+  cv.addEventListener("pointerdown", function (e) { scratching = true; last = null; cv.setPointerCapture(e.pointerId); scratchTo(pos(e)); });
+  cv.addEventListener("pointermove", function (e) { if (scratching) scratchTo(pos(e)); });
+  ["pointerup", "pointercancel", "pointerleave"].forEach(function (t) {
+    cv.addEventListener(t, function () { if (scratching) { scratching = false; last = null; checkCleared(); } });
+  });
+
+  function show(k, alreadySeen) {
+    current = k;
+    $("c-num").textContent = k + 1;
+    $("c-title").textContent = CLAUSES[k][0];
+    $("c-text").textContent = CLAUSES[k][1];
+    $("reader").hidden = false; $("sign").hidden = true;
+    if (alreadySeen) {
+      cv.classList.add("gone"); cleared = true;
+      $("hint").textContent = "";
+      $("next").textContent = revealed >= N ? "Read & sign →" : "Back to clause " + (revealed + 1) + " →";
+      $("next").hidden = false;
+    } else {
+      $("hint").textContent = "Scratch the gold to reveal the clause ✨";
+      $("next").hidden = true;
+      cover();
+    }
+    paintDots();
+  }
+
+  $("next").addEventListener("click", function () {
+    if (revealed >= N && (current === N - 1 || cleared)) return openSign();
+    show(revealed, false);
+    $("card").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  window.addEventListener("resize", function () { if (!cleared && !$("reader").hidden) cover(); });
+
+  // ---- signing ----
+  function openSign() {
+    var ul = $("all"); ul.innerHTML = "";
+    CLAUSES.forEach(function (c, k) {
+      var li = document.createElement("li"), b = document.createElement("b");
+      b.textContent = (k + 1) + ". " + c[0];
+      li.appendChild(b); li.appendChild(document.createTextNode(c[1]));
+      ul.appendChild(li);
+    });
+    $("reader").hidden = true; $("sign").hidden = false;
+    paintDots(); sizePad();
+    $("sign").scrollIntoView({ behavior: "smooth" });
+  }
+
+  var pad = $("pad"), pctx = pad.getContext("2d"), drawing = false, plast = null, signed = false;
+  function sizePad() {
+    var r = pad.getBoundingClientRect(), k = Math.min(2, window.devicePixelRatio || 1);
+    pad.width = Math.round(r.width * k); pad.height = Math.round(r.height * k);
+    pctx.setTransform(k, 0, 0, k, 0, 0);
+    pctx.strokeStyle = "#5d0909"; pctx.lineWidth = 2.6; pctx.lineCap = "round"; pctx.lineJoin = "round";
+  }
+  function ppos(e) { var r = pad.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  pad.addEventListener("pointerdown", function (e) { drawing = true; plast = ppos(e); pad.setPointerCapture(e.pointerId); $("pad-label").style.opacity = 0; signed = true; });
+  pad.addEventListener("pointermove", function (e) {
+    if (!drawing) return;
+    var p = ppos(e);
+    pctx.beginPath(); pctx.moveTo(plast.x, plast.y); pctx.lineTo(p.x, p.y); pctx.stroke();
+    plast = p;
+  });
+  ["pointerup", "pointercancel"].forEach(function (t) { pad.addEventListener(t, function () { drawing = false; }); });
+
+  $("yes").addEventListener("click", function () {
+    if (!signed) {
+      $("pad-label").textContent = "Signature first, Chikku 😄";
+      $("pad-label").style.color = "#5d0909";
+      return;
+    }
+    $("choices").hidden = true;
+    $("sealed").hidden = false;
+    hearts(40);
+  });
+
+  // the "I don't agree" button is not legally binding, so it runs away
+  var noBtn = $("no"), dodges = 0;
+  var lines = ["Nice try 😜", "Clause 10 says no 🙅", "Not an option 😌", "Nope ❤️"];
+  function dodge(e) {
+    if (e) e.preventDefault();
+    noBtn.textContent = lines[dodges++ % lines.length];
+    // jump somewhere else inside the button row, never off the page
+    var box = $("choices"), maxX = box.clientWidth - noBtn.offsetWidth, maxY = box.clientHeight - noBtn.offsetHeight;
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.max(0, Math.random() * maxX) + "px";
+    noBtn.style.top = Math.max(0, Math.random() * maxY) + "px";
+  }
+  noBtn.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") dodge(); });
+  noBtn.addEventListener("pointerdown", dodge);
+  noBtn.addEventListener("click", function (e) { e.preventDefault(); });
+
+  // ---- hearts ----
+  function hearts(n) {
+    var set = ["❤️", "💛", "✨", "🌙", "💍"];
+    for (var h = 0; h < n; h++) {
+      var el = document.createElement("span");
+      el.className = "heart";
+      el.textContent = set[h % set.length];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = 2.5 + Math.random() * 2.5 + "s";
+      el.style.animationDelay = Math.random() * 0.8 + "s";
+      document.body.appendChild(el);
+      setTimeout(function (x) { x.remove(); }, 6500, el);
+    }
+  }
+
+  // wait for fonts so the cover text uses Cinzel
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { show(0, false); });
+})();
+</script>
+</body>
+</html>
